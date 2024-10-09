@@ -15,15 +15,16 @@ public class Main {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
         DataOutputStream out = new DataOutputStream(mySocket.getOutputStream());
-        
+        String outputString;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Inserisci la stringa: ");
-        String outputString = sc.nextLine();
+        do {
+            System.out.println("Inserisci la stringa: ");
+            outputString = sc.nextLine();
+            out.writeBytes(outputString + "\n");
+            String stringInput = in.readLine();
+            System.out.println("stringa ricevuta: " + stringInput);
+        } while (outputString != "!");
         sc.close();
-
-        out.writeBytes(outputString + "\n");
-        String stringInput = in.readLine();
-        System.out.println("stringa ricevuta: " + stringInput);
         mySocket.close();
 
     }
